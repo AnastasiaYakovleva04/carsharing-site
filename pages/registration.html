@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/style.css">
+    <title>Регистрация</title>
+</head>
+<body>
+    <header>
+        <a href="../index.html"><img src="../img/svg/logo.svg" alt="logo" class="logo"></a>
+        <nav>
+            <a href="#">Акции</a>
+            <a href="../pages/bron.html">Бронирование</a>
+            <a href="#"><img src="../img/svg/account.svg" alt="account" class="account"></a>
+        </nav>
+    </header>
+
+    <main>
+        <h2>Регистрация</h2>
+            <div class="form">
+                <div class="user-info">
+                    <div class="inp">
+                        <label for="name">Имя</label>
+                        <input type="text" name="name" id="name" placeholder="Имя">
+                    </div>
+                    <div class="inp">
+                        <label for="surname">Фамилия</label>
+                        <input type="text" name="surname" id="surname" placeholder="Фамилия">
+                    </div>
+                    <div class="inp">
+                        <label for="patr">Дата возврата</label>
+                        <input type="text" name="patr" id="patr" placeholder="Отчество">
+                    </div>
+                    <div class="inp">
+                        <label for="phone">Номер телефона</label>
+                        <input type="text" name="phone" id="phone" placeholder="Х ХХХ ХХХ-ХХ-ХХ">
+                    </div>
+                </div>
+                <div class="user-info">
+                    <div class="inp">
+                        <label for="passport">Паспортные данные</label>
+                        <input type="text" name="passport" id="passport" placeholder="ХХХХ ХХХХХХ">
+                    </div>
+                    <div class="inp">
+                        <label for="bd">Дата рождения</label>
+                        <input type="date" name="bd" id="bd">
+                    </div>
+                    <div class="inp">
+                        <label for="password">Пароль</label>
+                        <input type="password" name="password" id="password" placeholder="Пароль">
+                    </div>
+                    <div class="inp">
+                        <label for="password">Повторите пароль</label>
+                        <input type="password" name="password" id="password" placeholder="Пароль">
+                    </div>
+                    <button class="cta">Регистрация ↗</button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+     <footer>
+        <nav>
+            <a href="#">Акции</a>
+            <a href="../pages/bron.html">Бронирование</a>
+            <a href="../pages/login.html">Личный кабинет</a>
+        </nav>
+        <p>8 (800) 111-11-11</p>
+    </footer>
+
+    <script>
+        let birthday = document.querySelector('#bd');
+        let today = new Date();
+        let maxBd = new Date();
+        maxBd.setFullYear(today.getFullYear() - 18);
+        let formatDate = (date) => date.toISOString().split('T')[0];
+        birthday.max = formatDate(maxBd)
+    </script>
+</body>
+</html>

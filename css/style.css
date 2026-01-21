@@ -1,0 +1,375 @@
+@font-face {
+    font-family: 'Montsterrat-reg';
+    src: url('../fonts/Montserrat-Regular.ttf');
+}
+@font-face {
+    font-family: 'Montsterrat-bi';
+    src: url('../fonts/Montserrat-BoldItalic.ttf');
+}
+@font-face {
+    font-family: 'NotoSans';
+    src: url('../fonts/NotoSansJP-Bold.otf');
+}
+
+*{
+    margin: 0;
+    padding: 0;
+}
+
+p, a, label{
+    font-size: 1.1em;
+    font-family: 'Montsterrat-reg';
+    color: #f2f2f2;
+    text-decoration: none;
+    line-height: 1.5;
+}
+a img:hover{
+    fill:#fa6f24;
+}
+label{
+    font-size: 1em;
+}
+span{
+    color: #959595;
+}
+body{
+    background-color: #1a1a1a;
+    margin: 0 200px;
+    display: flex;
+    flex-direction: column;
+    gap: 100px;
+}
+section{
+    height: 100vh;
+}
+header{
+    display: flex;
+    justify-content: space-between;
+    margin-top: 30px;
+}
+.logo{
+    width: 100px;
+}
+a{
+    transition: 0.3s;
+}
+a:hover{
+    color: rgb(254, 127, 37);
+}
+nav{
+    display: flex;
+    align-items: center;
+    gap: 30px;
+}
+h1{
+    color: #f2f2f2;
+    font-size: 5em;
+    line-height: 1;
+    font-family: 'Montsterrat-bi';
+}
+h2{
+    color: #1a1a1a;
+    font-size: 2em;
+    line-height: 1;
+    font-family: 'Montsterrat-bi';
+}
+h6{
+    font-size: 1.5em;
+    color: #f2f2f2;
+    font-family: 'Montsterrat-bi';
+}
+section h2, main h2{
+    color: #f2f2f2;
+}
+main{
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    gap: 180px;
+}
+.main-content, .car-card-content{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+}
+.car-card-content{
+    align-items: end;
+    margin-top: 60px;
+}
+.main-img, .car-card-img{
+    position: absolute;
+    width: 40%;
+    bottom: 40%;
+    left: 30%;
+}
+.car-card-img{
+    width: 60%;
+    bottom: 80%;
+    left: 20%;
+}
+button{
+    font-size: 1.3em;
+    border-radius: 40px;
+    transition: 0.3s;
+    border: none;
+    width: 300px;
+    height: 45px;
+    text-align: center;
+}
+.cta{
+    background-color: #fa6f24;
+    color: #f2f2f2;
+}
+.cta:hover{
+    background-color: rgb(221, 95, 6);
+    cursor: pointer;  
+}
+.stroke{
+    background-color: transparent;
+    border: 1px solid #f2f2f2;
+    color: #f2f2f2;
+}
+.stroke:hover{
+    background-color: #fa6f24;
+    border: 1px solid rgb(221, 95, 6);
+    cursor: pointer; 
+}
+
+.main-content button{
+    width: 30%;
+}
+.main-car, .car-card{
+    width: 100%;
+    height: 30%;
+    background-color: #f2f2f2;
+    border-radius: 30px;
+    position: relative;
+    padding: 30px;
+}
+.car-card{
+    height: calc(100% - 150px);
+    background-color: #2a2a2a;
+    flex: 0 0 28%; 
+}
+.car-card button{
+    width: 70%;
+}
+.car-card-bron{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+}
+.car-card-bron h6, .main-car-content h6{
+    color: #fa6f24;
+}
+.btn-black{
+    background-color: #1a1a1a;
+}
+.desc{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: baseline;
+    text-align: start;
+    gap: 10px;
+}
+.main-car-content p, .main-car-content h2{
+    color: #1a1a1a;
+}
+.main-car-content{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    margin-top: 50px;
+}
+
+.section-search{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.search, .form, .form-lk{
+    background-color: #2a2a2a;
+    padding: 80px 50px;
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    border-radius: 30px;
+    height: 30%;
+    gap: 30px;
+    align-items: end;
+    margin-top: 100px;
+}
+.car-info, .user-info, .form-user{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+.form-user{
+    align-items: end;
+    gap: 50px;
+}
+.user-info{
+    align-items: end;
+}
+
+.form{
+    width: 100%;
+    padding: 30px 50px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 100px;
+    height: auto;
+    align-items: start;
+}
+.form-lk{
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    height: auto;
+}
+.form-btns{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+}
+
+input{
+    width: 95%;
+    background-color: #1a1a1a;
+    border: none;
+    border-radius: 25px;
+    height: 50px;
+    color: #f2f2f2;
+    padding: 0 15px;
+}
+input::placeholder{
+    color: #959595;
+}
+input::-webkit-calendar-picker-indicator{
+    filter: invert(1);
+}
+.search-btns{
+    display: flex;
+    justify-content: space-evenly;
+    width: 100%;
+}
+
+footer{
+    background-color: #2a2a2a;
+    margin-left: -200px;
+    margin-right: -200px;
+    padding: 50px 200px;
+    display: flex;
+    justify-content: space-between;
+}
+
+
+.news{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    gap: 30px;
+}
+
+.new-content{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+.new button{
+    position: absolute;
+    right: 20px;
+    bottom: 20px;
+}
+.new-content h6{
+    width: 100%;
+}
+.new-content p{
+    font-size: 0.8em;
+    margin-bottom: 50px;
+}
+.new{
+    background-color: #2a2a2a;
+    padding: 30px;
+    border-radius: 30px;  
+    position: relative;
+    overflow: hidden;
+}
+.new:hover{
+    border: 1px solid #f2f2f2;
+    box-shadow: 5px 5px 20px #f2f2f231;
+}
+.new img{
+    opacity: 0;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-size: contain;
+}
+
+
+.carousel{
+    display: flex;
+    gap: 20px;
+    width: 100%;
+    height: 100%;
+    transition: transform 0.5s ease-in-out;
+    align-items: end;
+}
+.inp{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
+    text-align: left;
+}
+.carousel-container {
+    height: 50%;
+    width: 100%;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+.carousel-wrapper {
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+    margin: 0 20px;
+}
+.carousel-btn {
+    position: relative;
+    width: 50px;
+    height: 50px;
+    margin-top: 70px;
+    border: none;
+    border-radius: 50%;
+    background: #2a2a2a;
+    color: #f2f2f2;
+    font-size: 24px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    z-index: 10;
+}
+.carousel-btn:hover {
+    background: #555;
+    transform: scale(1.1);
+}
+.carousel-btn:active {
+    transform: scale(0.95);
+}
