@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', ()=> {
     let nextBtn = document.querySelector('.next-btn');
     
     let visibleCards = 3; //видимые карточки
-    let currentIndex = 0; //индекс текущей первой видимой карточки
+    let currentIndex = 0; //индекс текущей (первой) видимой карточки
     let totalCards = cards.length; //всего карточек
     
     //обновление позиции карусели
@@ -47,9 +47,6 @@ document.addEventListener('DOMContentLoaded', ()=> {
     }
     
     //обработчики кнопок
-    if (nextBtn) 
-        nextBtn.addEventListener('click', nextSlide);
-
-    if (prevBtn) 
-        prevBtn.addEventListener('click', prevSlide);
+    nextBtn.addEventListener('click', nextSlide);
+    prevBtn.addEventListener('click', prevSlide);
 });

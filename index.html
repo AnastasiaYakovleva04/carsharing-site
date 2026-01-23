@@ -44,12 +44,29 @@
         <h2>Найти автомобиль</h2>
         <div class="search">
             <div class="search-btns">
-                <button class="stroke">Эконом</button>
-                <button class="stroke">Премиум</button>
+                <button class="stroke" id="econom-btn">Эконом</button>
+                <button class="stroke" id="premium-btn">Премиум</button>
             </div>
             <input type="text" id="mark" name="mark" placeholder="Марка">
             <input type="text" id="model" name="model" placeholder="Модель">
-            <button class="cta">Найти ↗</button>
+            <button class="cta" id="search-btn">Найти ↗</button>
+        </div>
+    </section>
+
+    <section class="search-results-section" style="display: none;">
+        <h2>Результаты поиска</h2>
+        <div class="carousel-container">
+            <button class="carousel-btn prev-btn">
+                <span>&#8592;</span>
+            </button>
+            <div class="carousel-wrapper">
+                <div class="carousel">
+                    <!-- сюда будут добавляться карточки -->
+                </div>
+            </div>
+            <button class="carousel-btn next-btn">
+                <span>&#8594;</span>
+            </button>
         </div>
     </section>
 
@@ -104,6 +121,7 @@
     </footer>
 
     <script src="./js/flip-card-script.js"></script>
+    <script src="./js/search-script.js"></script>
     
 </body>
 </html>
