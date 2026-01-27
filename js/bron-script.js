@@ -125,11 +125,14 @@ document.addEventListener('DOMContentLoaded', ()=> {
         //разница в днях
         let timeDiff = endDate.getTime() - startDate.getTime();
         let days = Math.ceil(timeDiff / (1000 * 3600 * 24));
+        let temp = days;
         
         let discount = 0;
-         for (i = 0; i < 5; i++){
-            if (days - 3 >= 0)
+        for (i = 0; i < 5; i++){
+            if (temp - 3 >= 0){
                 discount+=0.05;
+                temp-=3;
+            }
         }
         
         //итоговая цена
