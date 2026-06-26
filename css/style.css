@@ -16,8 +16,15 @@
     padding: 0;
 }
 
+img{
+    pointer-events: none;
+}
+
+.mobile-only{
+    display: none;
+}
 p, a, label{
-    font-size: 1.1em;
+    font-size: 1em;
     font-family: 'Montsterrat-reg';
     color: #f2f2f2;
     text-decoration: none;
@@ -67,18 +74,18 @@ nav{
 }
 h1{
     color: #f2f2f2;
-    font-size: 4em;
+    font-size: 3.5em;
     line-height: 1;
     font-family: 'Montsterrat-bi';
 }
 h2{
     color: #1a1a1a;
-    font-size: 2em;
+    font-size: 1.8em;
     line-height: 1;
     font-family: 'Montsterrat-bi';
 }
 h6{
-    font-size: 1.5em;
+    font-size: 1.4em;
     color: #f2f2f2;
     font-family: 'Montsterrat-bi';
 }
@@ -117,12 +124,12 @@ main{
     left: 20%;
 }
 button{
-    font-size: 1.3em;
+    font-size: 1.1em;
     border-radius: 40px;
     transition: 0.3s;
     border: none;
     width: 300px;
-    height: 45px;
+    height: 40px;
     text-align: center;
 }
 .cta{
@@ -154,6 +161,9 @@ button{
     border-radius: 30px;
     position: relative;
     padding: 30px;
+}
+.main-car{
+    box-sizing: border-box;
 }
 .car-card{
     background-color: #2a2a2a;
@@ -209,6 +219,18 @@ button{
     gap: 30px;
     align-items: end;
 }
+.form{
+    box-sizing: border-box;
+}
+.search{
+    align-items: center;
+}
+.search input {
+    width: 88%;
+}
+.search button{
+    width: 43%;
+}
 .search-results-section .carousel-container {
     height: 65%;
 }
@@ -252,16 +274,21 @@ button{
     align-items: center;
     justify-content: space-between;
     width: 100%;
+    text-align: left;
 }
 
 input{
-    width: 95%;
     background-color: #1a1a1a;
     border: none;
     border-radius: 25px;
     height: 50px;
     color: #f2f2f2;
     padding: 0 15px;
+}
+input:disabled{
+    background-color: #2f2f2f;
+    border: #1a1a1a solid 1px;
+    color: #959595;
 }
 input::placeholder{
     color: #959595;
@@ -274,6 +301,10 @@ input::-webkit-calendar-picker-indicator{
     justify-content: space-evenly;
     width: 100%;
 }
+#search-btn{
+    margin: 0 4% 0 auto;
+}
+
 
 footer{
     background-color: #2a2a2a;
@@ -389,7 +420,7 @@ footer{
 .trust-cards{
     display: grid;
     gap: 30px;
-    height: 80%;
+    height: 70%;
     grid-template-columns: 1fr 1fr 1fr;
     grid-template-rows: 2fr 1fr 2fr;
 }
@@ -448,9 +479,6 @@ footer{
     align-items: end;
     background-color: #cb4e0a;
 }
-.account-data-card:last-child{
-    align-items: end;
-}
 .account-data-card:first-child .data, .account-data-card:last-child .data-card{
     width: 100%;
     justify-content: start;
@@ -470,6 +498,10 @@ footer{
     align-items: center;
     justify-content: center;
     height: 100%;
+}
+.data button{
+    height: 30px;
+    margin-top: 10px;
 }
 .circle img{
     width: 100%;
@@ -491,4 +523,506 @@ footer{
 }
 .circle h2{
     color: #cb4e0a;
+}
+
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999; /* Поверх всего */
+}
+
+.modal {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    background: #2a2a2a;
+    padding: 30px;
+    border-radius: 12px;
+    max-width: 400px;
+    width: 90%;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    z-index: 10000;
+    position: relative;
+}
+.modal h2, #points-amount{
+    color: #f2f2f2;
+}
+
+.modal .card-row {
+    display: flex;
+    gap: 10px;
+    justify-content: flex-end;
+}
+
+.modal .card-row .inp {
+    flex: 1;
+    width: 40%;
+}
+
+.modal-btns {
+    display: flex;
+    gap: 10px;
+    justify-content: flex-end;
+}
+#bookings-list,
+#history-list,
+#cards-list {
+    width: 100%;
+    max-height: 100px;
+    overflow-y: auto;
+    padding-right: 5px;
+}
+#cards-list{
+    max-height: 30px;
+}
+#history-list{
+    max-height: 450px;;
+}
+/* Скролл для всех списков */
+#bookings-list::-webkit-scrollbar,
+#history-list::-webkit-scrollbar,
+#cards-list::-webkit-scrollbar {
+    width: 4px;
+}
+
+#bookings-list::-webkit-scrollbar-track,
+#history-list::-webkit-scrollbar-track,
+#cards-list::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 10px;
+}
+
+#bookings-list::-webkit-scrollbar-thumb,
+#history-list::-webkit-scrollbar-thumb,
+#cards-list::-webkit-scrollbar-thumb {
+    background: #ffbf9d;
+    border-radius: 10px;
+}
+
+/* Элементы списков */
+.booking-item,
+.history-item,
+.card-item {
+    border-bottom: 1px solid #eee;
+    padding: 6px 0;
+}
+
+.booking-item:last-child,
+.history-item:last-child,
+.card-item:last-child {
+    border-bottom: none;
+}
+
+.booking-item p,
+.history-item p,
+.card-item p {
+    margin: 2px 0;
+}
+
+/* Скрываем пустые сообщения, когда есть элементы */
+#bookings-empty.hidden,
+#history-empty.hidden,
+#cards-empty.hidden {
+    display: none;
+}
+
+@media (min-width: 1280px){
+    h1{
+        font-size: 3em;
+    }
+    h2{
+        font-size: 1.5em;
+    }
+    p, a, label, input{
+        font-size: 0.85em;
+    }
+     .main-account-section p, .history-item p{
+        font-size: 1em;
+     }
+    h6{
+        font-size: 1.3em;
+    }
+    
+    body{
+        margin: 0 50px;
+    }
+    footer {
+        margin: 100px -50px 0 -50px;
+        padding: 30px 50px;
+    }
+    .data button{
+        height: 35px;
+    }
+    button{
+        width: 250px;
+    }
+
+    .main-img{
+        bottom: 55%;
+    }
+    .news, .trust-cards{
+        gap: 20px;
+    }
+    .new, .trust-card, .account-data-card{
+        padding: 20px;
+    }
+    .carousel-container{
+        height: 50% ;
+    }
+    .car-card{
+        min-height: 260px;
+    }
+    .car-card img{
+        bottom: 83%;
+    }
+    .car-info, .form-user{
+        gap: 10px;
+    }
+    .search{
+        padding: 50px 50px;
+    }
+    .search-results-section .car-card img{
+        bottom: 83%;
+    }
+    .search-results-section .car-card{
+        height: 370px;
+    }
+    .search-results-section .carousel-container{
+        height: 100%;
+    }
+    .search-results-section .car-card-content{
+        bottom: 30px;
+        top: 90px;
+    }
+    .main-account-section {
+        grid-template-columns: 1fr 1.2fr 0.8fr;
+        height: 65%;
+        row-gap: 70px;
+    }
+    .main-account-section button{
+        width: 250px;
+    }
+    .car-card button {
+        width: 60%;
+    }
+}
+
+@media (min-width: 1440px){
+    h2{
+        font-size: 1.5em;
+    }
+    p, a, label, input{
+        font-size: 0.85em;
+    }
+     .main-account-section p, .history-item p{
+        font-size: 1em;
+     }
+    h6{
+        font-size: 1.3em;
+    }
+
+    body{
+        margin: 0 100px;
+    }
+    footer {
+        margin: 0 -100px;
+        padding: 30px 100px;
+    }
+    button{
+        width: 300px;
+    }
+    .data{
+        gap: 5px;
+    }
+    .data button{
+        height: 35px;
+    }
+    .news, .trust-cards{
+        gap: 30px;
+    }
+    .new, .trust-card, .account-data-card{
+        padding: 30px;
+    }
+    main .carousel-container{
+        height: 60% ;
+    }
+    .carousel .car-card{
+        height: 350px;
+    }
+    .car-card img{
+        bottom: 83%;
+    }
+    .car-card button {
+        width: 70%;
+    }
+    .car-info, .form-user{
+        gap: 20px;
+    }
+    .search{
+        padding: 80px 50px;
+    }
+    .search-results-section .car-card img{
+        bottom: 83%;
+    }
+    .search-results-section .car-card{
+        height: 330px;
+    }
+    .search-results-section .carousel-container{
+        height: 75%;
+    }
+    .search-results-section .car-card-content{
+        bottom: 30px;
+        top: 90px;
+    }
+    .main-account-section {
+        grid-template-columns: 1fr 1.2fr 0.8fr;
+        height: 50%;
+        gap: 20px;
+        row-gap: 80px;
+    }
+    .main-account-section button{
+        width: 250px;
+    }
+    .bron{
+        height: auto;
+        gap: 80px;
+    }
+}
+
+@media (min-width: 1920px){
+    p, a, label, input, .history-item p{
+        font-size: 1.25em  ;
+    }
+    button, .data button{
+        font-size: 1.3em  ;
+        height: 50px  ;
+    }
+    input{
+        height: 60px  ;
+    }
+    .search input{
+        height: 50px  ;
+    }
+    h1{
+        font-size: 4em;
+    }
+    h2{
+        font-size: 2em  ;
+    }
+    h6{
+        font-size: 1.6em  ;
+    }
+    .main-img{
+        bottom: 55%  ;
+    }
+    .main-img{
+        bottom: 40%  ;
+    }
+    .carousel-container{
+        height: 40%  ;
+    }
+    .car-card{
+        min-height: 360px  ;
+    }
+    .car-card img{
+        bottom: 83%  ;
+    }
+    .search-results-section .car-card img{
+        bottom: 88%  ;
+    }
+    .search-results-section .car-card{
+        min-height: 450px  ;
+    }
+    .search-results-section .carousel-container{
+        height: 75%  ;
+    }
+    .search-results-section .car-card-content{
+        bottom: 30px  ;
+        top: 90px  ;
+    }
+    .main-account-section {
+        grid-template-columns: 0.8fr 1fr 0.7fr  ;
+    }
+}
+
+
+@media (max-width: 760px){
+    h1{
+        font-size: 3em;
+    }
+    h2{
+        font-size: 1.5em;
+    }
+    p, a, label, input{
+        font-size: 0.85em;
+    }
+     .main-account-section p, .history-item p{
+        font-size: 1em;
+     }
+    h6{
+        font-size: 1.3em;
+    }
+    
+    body{
+        margin: 0 10px;
+    }
+    footer {
+        margin: 0 -10px;
+        padding: 10px;
+    }
+    nav{
+        gap: 10px;
+    }
+    
+    .data button{
+        height: 35px;
+    }
+    button{
+        width: 250px;
+    }
+
+    .main-content{
+        gap: 15px;
+    }
+    .main-img, .car-card img {
+        bottom: 80%;
+        width: 80%;
+        left: 10%;
+    }
+    .main-car-content{
+        gap: 15px;
+    }
+    .section-trust, .section-news{
+        height: auto;
+        gap: 60px;
+    }
+    .news, .trust-cards{
+        gap: 20px;
+        display: flex;
+        flex-direction: column;
+    }
+    .new, .trust-card, .account-data-card{
+        padding: 30px 20px;
+    }
+    .carousel-container{
+        height: 60% ;
+        padding: 0;
+    }
+    .car-card{
+        min-height: 380px;
+        flex: 0 0 80%;
+        padding: 20px;
+    }
+    .car-card button {
+        width: 60%;
+        font-size: 0.9em;
+    }
+    .car-card img{
+        bottom: 88%;
+    }
+    .car-info, .form-user{
+        gap: 10px;
+    }
+    .search{
+        padding: 30px;
+        width: 85%;
+    }
+    .search-results-section .car-card img{
+        bottom: 83%;
+    }
+    .search-results-section .car-card{
+        min-height: 400px;
+    }
+    .search-results-section .carousel-container{
+        height: 75%;
+    }
+    .search-results-section .car-card-content{
+        bottom: 30px;
+        top: 90px;
+    }
+    .main-bron{
+        gap: 80px;
+    }
+    .main-account, .main-reg{
+        height: auto;
+        gap: 80px;
+    }
+    .main-account-section {
+        display: flex;
+        flex-direction: column;
+        gap: 30px;
+        height: 65%;
+        max-width: calc(100% - 20px);
+    }
+    .main-account-section button{
+        width: 200px;
+    }
+    .bron{
+        height: auto;
+        gap: 80px;
+    }
+    .form{
+        grid-template-columns: 1fr;
+        padding: 30px 20px;
+        gap: 80px;
+    }
+    .form-user{
+        gap: 20px;
+    }
+    .data{
+        width: 70%;
+    }
+    .data-card{
+        gap: 15px;
+    }
+    .circle{
+        width: 60px;
+        height: 60px;
+    }
+    .logo{
+        width: 80px;
+    }
+    .form-lk{
+        width: calc(100% - 20px);
+        padding: 30px;
+        box-sizing: border-box;
+        gap: 20px;
+    }
+    .mobile-only{
+        display: inline;
+    }
+    .form-btns button {
+        width: 150px;
+    }
+}
+@media (max-width: 400px){
+    .search{
+        padding: 20px;
+    }
+    .carousel-wrapper{
+        margin: 0 0 0 10px;
+    }
+    footer{
+        flex-direction: column;
+        gap: 10px
+    }
+    h6{
+        font-size: 1.2em;
+    }
+    .bron h1{
+        text-align: center;
+    }
+    .form-lk{
+        gap: 20px;
+    }
+    .logo{
+        width: 60px;
+    }
 }

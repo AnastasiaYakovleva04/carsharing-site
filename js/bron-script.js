@@ -1,4 +1,31 @@
 document.addEventListener('DOMContentLoaded', ()=> {
+    
+    function autoFillUserData() {
+        const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+        if (!currentUser) return;
+    
+        // Разбиваем ФИО на части
+        const nameParts = currentUser.name.split(' ');
+        const surname = nameParts[0] || '';
+        const firstName = nameParts[1] || '';
+        const patronymic = nameParts[2] || '';
+    
+        document.getElementById('name').value = firstName;
+        document.getElementById('surname').value = surname;
+        document.getElementById('patr').value = patronymic;
+        document.getElementById('phone').value = currentUser.phone;
+        document.getElementById('bd').value = currentUser.birthDate;
+        
+        // Если есть привязанная карта — подставить первую
+        if (currentUser.cards && currentUser.cards.length > 0) {
+            // Можно подставить маскированный номер, но лучше оставить пустым для безопасности
+            document.getElementById('bank-card').placeholder = `**** **** **** ${currentUser.cards[0].number.slice(-4)}`;
+        }
+    }
+
+// Вызвать при загрузке страницы
+    autoFillUserData();
+
     let dailyPrice = 0;
     //если пришло что-то из другого окна
     //используется для передачи данных о машине с главной страницы на форму аренды
@@ -146,4 +173,89 @@ document.addEventListener('DOMContentLoaded', ()=> {
     bronBtns.forEach(btn => {
         btn.addEventListener('click', BronCar);
     });
+    
+function saveBooking(bookingData) {
+    const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+    if (!currentUser) {
+        alert('Пожалуйста, войдите в аккаунт');
+        return false;
+    }
+
+    const users = JSON.parse(localStorage.getItem('users')) || [];
+    const userIndex = users.findIndex(u => u.id === currentUser.id);
+    
+    if (userIndex === -1) {
+        alert('Ошибка: пользователь не найден');
+        return false;
+    }
+
+    //сохранение существующих данных
+    const existingCards = users[userIndex].cards || [];
+    const existingPoints = users[userIndex].points || 0;
+    const existingHistory = users[userIndex].history || [];
+    const existingBookings = users[userIndex].bookings || [];
+
+    //бронь
+    const booking = {
+        id: Date.now(),
+        carName: bookingData.carName || `${bookingData.mark} ${bookingData.model}`,
+        carMark: bookingData.mark,
+        carModel: bookingData.model,
+        vin: bookingData.vin,
+        number: bookingData.num,
+        startDate: bookingData.startDate,
+        endDate: bookingData.endDate,
+        price: bookingData.totalPrice,
+        status: 'active',
+        createdAt: new Date().toISOString()
+    };
+
+    //обновление данных
+    users[userIndex].bookings = [...existingBookings, booking];
+    users[userIndex].history = existingHistory;
+    users[userIndex].cards = existingCards; // <-- ВАЖНО!
+    users[userIndex].points = existingPoints + Math.floor(booking.price * 0.1);
+
+    localStorage.setItem('users', JSON.stringify(users));
+    localStorage.setItem('currentUser', JSON.stringify(users[userIndex]));
+
+    alert(`Бронь оформлена! Начислено ${Math.floor(booking.price * 0.1)} баллов.`);
+    return true;
+}
+
+document.querySelector('.form-user .cta')?.addEventListener('click', function(e) {
+    e.preventDefault();
+    
+    const formData = {
+        name: document.getElementById('name')?.value || '',
+        surname: document.getElementById('surname')?.value || '',
+        patr: document.getElementById('patr')?.value || '',
+        phone: document.getElementById('phone')?.value || '',
+        passport: document.getElementById('passport')?.value || '',
+        birthDate: document.getElementById('bd')?.value || '',
+        vin: document.getElementById('vin')?.value || '',
+        mark: document.getElementById('mark')?.value || '',
+        model: document.getElementById('model')?.value || '',
+        num: document.getElementById('num')?.value || '',
+        startDate: document.getElementById('bron-date')?.value || '',
+        endDate: document.getElementById('back-date')?.value || '',
+        totalPrice: document.getElementById('price')?.value || '',
+        bankCard: document.getElementById('bank-card')?.value || '',
+        filial: document.getElementById('filial')?.value || ''
+    };
+
+        if (formData.name === '' || formData.surname === '' || 
+            formData.phone === '' || formData.passport === '' ||
+            formData.bankCard === '' || formData.birthDate ===''
+            || formData.filial === '') {
+            alert('Все поля кроме отчества обязательны для заполнения');
+            return;
+        }
+
+    const success = saveBooking(formData);
+    if (success) {
+        setTimeout(() => {
+            window.location.href = 'account.html';
+        }, 2000);
+    }});
 });
