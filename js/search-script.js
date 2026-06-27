@@ -241,54 +241,86 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 //инициализация карусели для результатов поиска
+//инициализация карусели для результатов поиска
 function initSearchCarousel() {
     let carousel = document.querySelector('.search-results-section .carousel');
-    let cards = carousel.querySelectorAll('.car-card');
     let prevBtn = document.querySelector('.search-results-section .prev-btn');
     let nextBtn = document.querySelector('.search-results-section .next-btn');
     
-    let visibleCards = 3;
     let currentIndex = 0;
-    let totalCards = cards.length;
+    
+    // функция для определения количества видимых карточек
+    function getVisibleCards() {
+        if (window.innerWidth <= 768) {
+            return 1;
+        }
+        return 3;
+    }
     
     function updateCarousel() {
-
-        let cardWidth = cards[0].offsetWidth + 20; //ширина + gap
-        let translateX = -currentIndex * cardWidth; //сдвиг карусели влево
+        let cards = carousel.querySelectorAll('.car-card');
+        if (cards.length === 0) return;
         
+        let visibleCards = getVisibleCards();
+        let cardWidth = cards[0].offsetWidth + 20;
+        let translateX = -currentIndex * cardWidth;
+        
+        carousel.style.transition = 'transform 0.5s ease-in-out';
         carousel.style.transform = `translateX(${translateX}px)`;
-        
-        //прокрутка
-        if (currentIndex >= totalCards) {
-            currentIndex = 0;
-            carousel.style.transform = `translateX(0)`;
-            
-            //анимация
-            setTimeout(() => {
-                carousel.style.transition = 'transform 0.5s ease-in-out';
-            }, 50);
-        }
     }
     
     function nextSlide() {
-        if (currentIndex < totalCards - visibleCards)
+        let cards = carousel.querySelectorAll('.car-card');
+        if (cards.length === 0) return;
+        
+        let visibleCards = getVisibleCards();
+        let maxIndex = cards.length - visibleCards;
+        
+        if (currentIndex < maxIndex) {
             currentIndex++;
-        else 
+        } else {
             currentIndex = 0;
+        }
         updateCarousel();
     }
     
     function prevSlide() {
-        if (currentIndex > 0)
+        let cards = carousel.querySelectorAll('.car-card');
+        if (cards.length === 0) return;
+        
+        let visibleCards = getVisibleCards();
+        let maxIndex = cards.length - visibleCards;
+        
+        if (currentIndex > 0) {
             currentIndex--;
-        else 
-            currentIndex = totalCards - visibleCards;
+        } else {
+            currentIndex = maxIndex;
+        }
         updateCarousel();
     }
     
-    prevBtn.addEventListener('click', prevSlide);
-    nextBtn.addEventListener('click', nextSlide);
+    // удаляем старые обработчики, чтобы не было дублирования
+    let newPrevBtn = prevBtn.cloneNode(true);
+    let newNextBtn = nextBtn.cloneNode(true);
+    prevBtn.parentNode.replaceChild(newPrevBtn, prevBtn);
+    nextBtn.parentNode.replaceChild(newNextBtn, nextBtn);
+    
+    newPrevBtn.addEventListener('click', prevSlide);
+    newNextBtn.addEventListener('click', nextSlide);
+    
+    // обработчик ресайза для этой карусели
+    window.addEventListener('resize', function() {
+        let cards = carousel.querySelectorAll('.car-card');
+        if (cards.length === 0) return;
+        
+        let visibleCards = getVisibleCards();
+        let maxIndex = cards.length - visibleCards;
+        if (currentIndex > maxIndex) {
+            currentIndex = maxIndex;
+        }
+        updateCarousel();
+    });
     
     updateCarousel();
-    }
+}
 });
